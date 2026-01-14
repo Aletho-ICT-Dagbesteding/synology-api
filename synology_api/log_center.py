@@ -82,7 +82,7 @@ class LogCenter(base_api.BaseApi):
 
         return self.request_data(api_name, api_path, req_param)
 
-    def display_logs(self) -> dict[str, object] | str:
+    def display_logs(self, offset=0, limit=1000, date_from=0, date_to=0, target="LOCAL", logtype="system,netbackup") -> dict[str, object] | str:
         """
         Retrieve the list of logs from the syslog client.
 
@@ -94,7 +94,7 @@ class LogCenter(base_api.BaseApi):
         api_name = 'SYNO.Core.SyslogClient.Log'
         info = self.gen_list[api_name]
         api_path = info['path']
-        req_param = {'version': info['maxVersion'], 'method': 'list'}
+        req_param = {'version': info['maxVersion'], 'method': 'list', 'offset': offset, 'limit': limit, 'target': target, 'logtype': logtype, 'date_from': date_from, 'date_to': date_to}
 
         return self.request_data(api_name, api_path, req_param)
 
